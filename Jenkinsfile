@@ -1,23 +1,11 @@
 pipeline {
   agent any
   stages {
-    stage('Create File') {
-      parallel {
-        stage('Change directory') {
-          steps {
-            dir(path: '/home/mohamed/C')
-          }
-        }
-
-        stage('Create file') {
-          steps {
-            sh 'touch main.c'
-          }
-        }
-
-        stage('Write C code') {
-          steps {
-            sh '''printf "
+    stage('Change directory') {
+      steps {
+        dir(path: '/home/mohamed/C') {
+          sh 'touch main.c'
+          sh '''printf "
 #include<stdio.h>\\n
 #include <stdlib.h>\\n
 
@@ -26,7 +14,6 @@ int main()\\n
  printf(\\"salut le monde\\");\\n
 }\\n
 "'''
-          }
         }
 
       }
